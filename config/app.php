@@ -123,4 +123,18 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Custom I2C Configs
+    |--------------------------------------------------------------------------
+    |
+    |
+    */
+
+    'i2c_pretty_version' => env('I2C_PRETTY_VERSION', 'v15.1'),
+
+    'g_recapcha_site'         => env('G_RECAPCHA_SITE', ''),
+    'g_recapcha_server'       => env('G_RECAPCHA_SERVER', ''),
+    'g_tag'                   => env('G_TAG', ''),
+    'g_analytics_property_id' => env('G_ANALYTICS_PROPERTY_ID', ''),
 ];
