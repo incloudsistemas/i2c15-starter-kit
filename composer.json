@@ -14,10 +14,14 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "cviebrock/eloquent-sluggable": "^12.0",
         "filament/filament": "^3.3",
+        "filament/spatie-laravel-media-library-plugin": "^3.3",
+        "intervention/image": "^3.11",
         "laravel-lang/common": "^6.7",
         "laravel/framework": "^12.0",
-        "laravel/tinker": "^2.10.1"
+        "laravel/tinker": "^2.10.1",
+        "spatie/laravel-permission": "^6.16"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
@@ -32,7 +36,10 @@
             "App\\": "app/",
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/"
-        }
+        },
+        "files": [
+            "app/Helpers/_helpers_loader.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
