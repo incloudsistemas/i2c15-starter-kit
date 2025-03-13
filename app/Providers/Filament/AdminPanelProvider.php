@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\System\EditProfile;
 use App\Filament\Widgets\AppInfoWidget;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -12,6 +13,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\PanelProvider;
 use Filament\Support\Colors\Color;
+use Filament\Support\Enums\MaxWidth;
 use Filament\Widgets;
 use Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse;
 use Illuminate\Cookie\Middleware\EncryptCookies;
@@ -26,8 +28,8 @@ class AdminPanelProvider extends PanelProvider
     {
         return $panel
             ->default()
-            ->id('admin')
-            ->path('admin')
+            ->id('i2c-admin')
+            ->path('i2c-admin')
             ->login()
             ->colors([
                 'primary' => Color::Violet,
@@ -35,7 +37,11 @@ class AdminPanelProvider extends PanelProvider
             ->favicon(url: asset('images/i2c-favicon.ico'))
             ->brandLogo(asset('images/i2c-logo.png'))
             ->sidebarCollapsibleOnDesktop()
+            ->profile(EditProfile::class)
+            ->maxContentWidth(MaxWidth::Full)
             ->userMenuItems([
+                'profile' => Navigation\MenuItem::make()
+                    ->label('Meu Perfil'),
                 Navigation\MenuItem::make()
                     ->label('Website')
                     ->url('/')
@@ -68,6 +74,7 @@ class AdminPanelProvider extends PanelProvider
             ])
             ->authMiddleware([
                 Authenticate::class,
-            ]);
+            ])
+            ->databaseTransactions();
     }
 }

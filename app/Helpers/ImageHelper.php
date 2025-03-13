@@ -19,7 +19,6 @@ use Intervention\Image\Encoders\AutoEncoder;
  * @param int $quality Image quality (default: 100).
  * @return string URL of the generated thumbnail.
  */
-
 if (!function_exists('CreateThumb')) {
     function CreateThumb(
         ?string $src,
@@ -125,7 +124,6 @@ if (!function_exists('CreateThumb')) {
  * @param string $textColor Text color in hex (default: 'AAAAAA').
  * @return string URL of the generated placeholder image.
  */
-
 if (!function_exists('PlaceholderImg')) {
     function PlaceholderImg(
         int $width,

@@ -11,8 +11,10 @@ use App\Enums\ProfileInfos\MaritalStatusEnum;
 use App\Enums\ProfileInfos\UserStatusEnum;
 use App\Models\Polymorphics\Address;
 use App\Observers\System\UserObserver;
+use App\Services\System\RoleService;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -104,6 +106,30 @@ class User extends Authenticatable implements FilamentUser, HasMedia
      *
      */
 
+    public function scopeByAuthUserRoles(Builder $query, User $user): Builder
+    {
+        $rolesToAvoid = RoleService::getArrayOfRolesToAvoidByAuthUserRoles(user: $user);
+
+        return $query->whereHas('roles', function (Builder $query) use ($rolesToAvoid): Builder {
+            return $query->whereNotIn('id', $rolesToAvoid);
+        });
+    }
+
+    public function scopeWhereHasRolesAvoidingClients(Builder $query): Builder
+    {
+        $rolesToAvoid = [2]; // 2 - Cliente
+
+        return $query->whereHas('roles', function (Builder $query) use ($rolesToAvoid): Builder {
+            return $query->whereNotIn('id', $rolesToAvoid);
+        });
+    }
+
+    public function scopeByStatuses(Builder $query, array $statuses = [1]): Builder
+    {
+        return $query->whereHasRolesAvoidingClients()
+            ->whereIn('status', $statuses);
+    }
+
     /**
      * MUTATORS.
      *
@@ -114,6 +140,72 @@ class User extends Authenticatable implements FilamentUser, HasMedia
      *
      */
 
+    public function getDisplayAdditionalEmailsAttribute(): ?array
+    {
+        $additionalEmails = [];
+
+        if (isset($this->additional_emails[0])) {
+            foreach ($this->additional_emails as $email) {
+                $additionalEmail = $email['email'];
+
+                if (!empty($email['name'])) {
+                    $additionalEmail .= " ({$email['name']})";
+                }
+
+                $additionalEmails[] = $additionalEmail;
+            }
+        }
+
+        return !empty($additionalEmails) ? $additionalEmails : null;
+    }
+
+    public function getDisplayMainPhoneAttribute(): ?string
+    {
+        return $this->phones[0]['number'] ?? null;
+    }
+
+    public function getDisplayMainPhoneWithNameAttribute(): ?string
+    {
+        if (isset($this->phones[0]['number'])) {
+            $mainPhone = $this->phones[0]['number'];
+            $phoneName = $this->phones[0]['name'] ?? null;
+
+            if (!empty($phoneName)) {
+                $mainPhone .= " ({$phoneName})";
+            }
+
+            return $mainPhone;
+        }
+
+        return null;
+    }
+
+    public function getDisplayAdditionalPhonesAttribute(): ?array
+    {
+        $additionalPhones = [];
+
+        if (isset($this->phones[1]['number'])) {
+            foreach (array_slice($this->phones, 1) as $phone) {
+                $additionalPhone = $phone['number'];
+
+                if (!empty($phone['name'])) {
+                    $additionalPhone .= " ({$phone['name']})";
+                }
+
+                $additionalPhones[] = $additionalPhone;
+            }
+        }
+
+        return !empty($additionalPhones) ? $additionalPhones : null;
+    }
+
+    public function getDisplayBirthDateAttribute(): ?string
+    {
+        return isset($this->birth_date)
+            ? ConvertEnToPtBrDate(date: $this->birth_date)
+            : null;
+    }
+
     public function getFeaturedImageAttribute(): ?Media
     {
         $featuredImage = $this->getFirstMedia('avatar');
@@ -123,5 +215,10 @@ class User extends Authenticatable implements FilamentUser, HasMedia
         }
 
         return $featuredImage ?? null;
+    }
+
+    public function getAttachmentsAttribute()
+    {
+        return $this->getMedia('attachments');
     }
 }

@@ -7,7 +7,6 @@ use Illuminate\Support\Facades\Storage;
  * Retrieves the model type from the morph map.
  *
  */
-
 if (!function_exists('MorphMapByClass')) {
     function MorphMapByClass(string $model): string
     {
@@ -19,7 +18,6 @@ if (!function_exists('MorphMapByClass')) {
  * Converts a pt-br formatted float string to an integer.
  *
  */
-
 if (!function_exists('ConvertPtBrFloatStringToInt')) {
     function ConvertPtBrFloatStringToInt(mixed $value): int
     {
@@ -34,7 +32,6 @@ if (!function_exists('ConvertPtBrFloatStringToInt')) {
  * Converts an integer value into a float.
  *
  */
-
 if (!function_exists('ConvertIntToFloat')) {
     function ConvertIntToFloat(mixed $value): float
     {
@@ -46,7 +43,6 @@ if (!function_exists('ConvertIntToFloat')) {
  * Converts a date from pt-br format (dd/mm/yyyy) to en format (yyyy-mm-dd).
  *
  */
-
 if (!function_exists('ConvertPtBrToEnDate')) {
     function ConvertPtBrToEnDate(string $date): string
     {
@@ -58,7 +54,6 @@ if (!function_exists('ConvertPtBrToEnDate')) {
  * Converts a datetime from pt-br format (dd/mm/yyyy H:i:s) to en format (yyyy-mm-dd H:i:s)
  *
  */
-
 if (!function_exists('ConvertPtBrToEnDateTime')) {
     function ConvertPtBrToEnDateTime(string $date): string
     {
@@ -70,7 +65,6 @@ if (!function_exists('ConvertPtBrToEnDateTime')) {
  * Converts a date from pt-br format to a full-length date format in pt-br.
  *
  */
-
 if (!function_exists('ConvertPtBrToLongDate')) {
     function ConvertPtBrToLongDate(string $date): string
     {
@@ -117,7 +111,6 @@ if (!function_exists('ConvertPtBrToLongDate')) {
  * Converts a date from en format (yyyy-mm-dd) to pt-br format (dd/mm/yyyy).
  *
  */
-
 if (!function_exists('ConvertEnToPtBrDate')) {
     function ConvertEnToPtBrDate(string $date): string
     {
@@ -129,7 +122,6 @@ if (!function_exists('ConvertEnToPtBrDate')) {
  * Converts a datetime from en format (yyyy-mm-dd H:i:s) to pt-br format (dd/mm/yyyy H:i:s).
  *
  */
-
 if (!function_exists('ConvertEnToPtBrDateTime')) {
     function ConvertEnToPtBrDateTime(string $date, bool $showSeconds = false): string
     {
@@ -141,7 +133,6 @@ if (!function_exists('ConvertEnToPtBrDateTime')) {
  * Limits a string to a specific number of characters.
  *
  */
-
 if (!function_exists('LimitCharsFromString')) {
     function LimitCharsFromString(?string $string, int $numChars = 280): ?string
     {
@@ -157,7 +148,6 @@ if (!function_exists('LimitCharsFromString')) {
  * Cleans a variable by removing special characters, spaces, and unnecessary content.
  *
  */
-
 if (!function_exists('SanitizeVar')) {
     function SanitizeVar(?string $string): ?string
     {
@@ -187,7 +177,6 @@ if (!function_exists('SanitizeVar')) {
  * Formats numbers with abbreviated notation (e.g., 1K, 1M).
  *
  */
-
 if (!function_exists('AbbrNumberFormat')) {
     function AbbrNumberFormat(int $number): string
     {
@@ -205,7 +194,6 @@ if (!function_exists('AbbrNumberFormat')) {
  * Extracts the path from a given URL.
  *
  */
-
 if (!function_exists('GetUrlPath')) {
     function GetUrlPath(string $url): string
     {
@@ -225,7 +213,6 @@ if (!function_exists('GetUrlPath')) {
  * Converts a hexadecimal color to RGB format.
  *
  */
-
 if (!function_exists('HexToRgb')) {
     function HexToRgb(?string $hex): ?array
     {
@@ -254,7 +241,6 @@ if (!function_exists('HexToRgb')) {
  * Generates a tel link for a given phone number with a country code.
  *
  */
-
 if (!function_exists('GetPhoneLink')) {
     function GetPhoneLink(?string $phone, string $countryCode = '55'): ?string
     {
@@ -266,7 +252,6 @@ if (!function_exists('GetPhoneLink')) {
  * Generates a WhatsApp link for a given phone number with an optional message and country code.
  *
  */
-
 if (!function_exists('GetWhatsappLink')) {
     function GetWhatsappLink(?string $phone, string $countryCode = '55', ?string $text = null): ?string
     {

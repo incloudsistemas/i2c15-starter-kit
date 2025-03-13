@@ -4,7 +4,6 @@
  * Retrieves the corresponding social media link for a given platform.
  *
  */
-
 if (!function_exists('GetSocialMedia')) {
     function GetSocialMedia(array $social): ?string
     {
