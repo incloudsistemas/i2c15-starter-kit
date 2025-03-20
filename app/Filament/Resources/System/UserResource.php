@@ -371,7 +371,7 @@ class UserResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address.number')
                     ->label(__('Número'))
-                    ->minLength(2)
+                    // ->minLength(2)
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address.complement')
                     ->label(__('Complemento'))

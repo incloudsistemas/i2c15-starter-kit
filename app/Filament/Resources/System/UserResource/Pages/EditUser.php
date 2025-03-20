@@ -7,6 +7,7 @@ use App\Models\System\User;
 use App\Services\System\UserService;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\Hash;
 
 class EditUser extends EditRecord
 {
@@ -68,7 +69,10 @@ class EditUser extends EditRecord
 
         $this->record->address()
             ->updateOrCreate(
-                ['addressable_type' => MorphMapByClass(model: get_class($this->record)), 'addressable_id' => $this->record->id],
+                [
+                    'addressable_type' => MorphMapByClass(model: get_class($this->record)),
+                    'addressable_id'   => $this->record->id
+                ],
                 $this->data['address']
             );
     }

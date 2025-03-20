@@ -31,11 +31,13 @@ class AdminPanelProvider extends PanelProvider
             ->id('i2c-admin')
             ->path('i2c-admin')
             ->login()
+            ->passwordReset()
             ->colors([
                 'primary' => Color::Violet,
             ])
             ->favicon(url: asset('images/i2c-favicon.ico'))
             ->brandLogo(asset('images/i2c-logo.png'))
+            ->brandLogoHeight('2rem')
             ->sidebarCollapsibleOnDesktop()
             ->profile(EditProfile::class)
             ->maxContentWidth(MaxWidth::Full)
